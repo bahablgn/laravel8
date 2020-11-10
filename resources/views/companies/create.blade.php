@@ -30,19 +30,19 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Name:</strong>
-                <input type="text" name="name" class="form-control" placeholder="Name">
+                <input type="text" name="name" class="form-control" placeholder="Name" required>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>URL:</strong>
-                <input type="text" name="url" class="form-control" placeholder="url">
+                <input type="url" name="url" class="form-control" placeholder="https://example.com" pattern="https://.*" size="50" required>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Address:</strong>
-                <textarea class="form-control" style="height:150px" name="address" placeholder="Address"></textarea>
+                <textarea class="form-control" style="height:150px" name="address" placeholder="Address" required></textarea>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">

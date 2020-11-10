@@ -3,10 +3,10 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
+            <div class="float-left">
                 <h2>Companies</h2>
             </div>
-            <div class="pull-right">
+            <div class="float-right">
                 <a class="btn btn-success" href="{{ route('companies.create') }}"> Create New Company</a>
             </div>
         </div>
@@ -32,12 +32,15 @@
             <td>{{ $company->name }}</td>
             <td>{{ $company->url }}</td>
             <td>{{ $company->addresses[0]->address }}</td>
-            <td>
+            <td width="300px">
                 <form action="{{ route('companies.destroy',$company->id) }}" method="POST">
    
                     <a class="btn btn-info" href="{{ route('companies.show',$company->id) }}">Show</a>
+
+                    <a class="btn btn-warning" href="#">HTML</a>
     
                     <a class="btn btn-primary" href="{{ route('companies.edit',$company->id) }}">Edit</a>
+
    
                     @csrf
                     @method('DELETE')
@@ -49,6 +52,6 @@
         @endforeach
     </table>
   
-    {!! $companies->links() !!}
+    {{-- {!! $companies->links() !!} --}}
       
 @endsection

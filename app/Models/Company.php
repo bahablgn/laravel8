@@ -25,4 +25,8 @@ class Company extends Model
     {
         return $this->hasMany('App\Models\Address','company_id');
     }
+    public function websites()
+    {
+        return $this->hasOne('App\Models\Website','company_id');
+    }
 }
