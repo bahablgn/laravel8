@@ -17,8 +17,12 @@ class Company extends Model
 
     protected $table = 'companies';
 
-    public function employee()
+    public function employees()
     {
         return $this->hasMany('App\Models\Employee','company_id');
+    }
+    public function addresses()
+    {
+        return $this->hasMany('App\Models\Address','company_id');
     }
 }

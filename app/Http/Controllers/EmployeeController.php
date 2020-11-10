@@ -79,7 +79,7 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         $companies = DB::table('companies')->pluck("name","id");
-        $company = Company::with('employee')->find($employee->company_id);
+        $company = Company::with('employees')->find($employee->company_id);
         return view('employees.edit',compact('employee','company', 'companies'));
     }
     

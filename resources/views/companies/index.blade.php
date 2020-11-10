@@ -23,6 +23,7 @@
             <th>No</th>
             <th>Name</th>
             <th>URL</th>
+            <th>Address</th>
             <th width="280px">Action</th>
         </tr>        
         @foreach ($companies as $company)
@@ -30,6 +31,7 @@
             <td>{{ ++$i }}</td>
             <td>{{ $company->name }}</td>
             <td>{{ $company->url }}</td>
+            <td>{{ $company->addresses[0]->address }}</td>
             <td>
                 <form action="{{ route('companies.destroy',$company->id) }}" method="POST">
    

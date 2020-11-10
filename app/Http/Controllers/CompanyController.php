@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
    
 use App\Models\Company;
+use App\Models\Address;
 use Illuminate\Http\Request;
   
 class CompanyController extends Controller
@@ -38,12 +39,25 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'url' => 'required',
-        ]);
-    
-        Company::create($request->all());
+        //for validation
+        // $request->validate([
+        //     'name' => 'required',
+        //     'url' => 'required',
+        // ]);             
+        
+        // for all form input same table use this
+        //Company::create($request->all());
+
+        // two tables insert same time
+        $comp = new Company();
+        $comp->name = $request->name;
+        $comp->url = $request->url;
+        $comp->save();
+        
+        $location = new Address();
+        $location->company_id = $comp->id;
+        $location->address = $request->address;
+        $location->save();
      
         return redirect()->route('companies.index')
                         ->with('success','Company created successfully.');
@@ -79,13 +93,12 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Company $company)
-    {
-        $request->validate([
-            'name' => 'required',
-            'url' => 'required',
-        ]);
-    
+    {       
         $company->update($request->all());
+
+        $company->addresses[0]->update([
+            'address' => $request['address']          
+        ]);    
     
         return redirect()->route('companies.index')
                         ->with('success','Company updated successfully');

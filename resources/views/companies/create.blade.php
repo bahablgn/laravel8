@@ -36,7 +36,13 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>URL:</strong>
-                <textarea class="form-control" style="height:150px" name="url" placeholder="URL"></textarea>
+                <input type="text" name="url" class="form-control" placeholder="url">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Address:</strong>
+                <textarea class="form-control" style="height:150px" name="address" placeholder="Address"></textarea>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
