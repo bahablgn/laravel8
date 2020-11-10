@@ -1,13 +1,13 @@
-@extends('people.layout')
+@extends('layout')
    
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Edit Person</h2>
+                <h2>Edit Employee</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('people.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('employees.index') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
         </div>
     @endif
   
-    <form action="{{ route('people.update',$person->id) }}" method="POST">
+    <form action="{{ route('employees.update',$employee->id) }}" method="POST">
         @csrf
         @method('PUT')
    
@@ -31,31 +31,31 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Name:</strong>
-                    <input type="text" name="name" value="{{ $person->name }}" class="form-control" placeholder="Name">
+                    <input type="text" name="name" value="{{ $employee->name }}" class="form-control" placeholder="Name">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Last Name:</strong>
-                    <input type="text" name="lastname" value="{{ $person->lastname }}" class="form-control" placeholder="lastname">
+                    <input type="text" name="lastname" value="{{ $employee->lastname }}" class="form-control" placeholder="lastname">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Title:</strong>
-                    <input type="text" name="title" value="{{ $person->title }}" class="form-control" placeholder="title">
+                    <input type="text" name="title" value="{{ $employee->title }}" class="form-control" placeholder="title">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Email:</strong>
-                    <input type="text" name="email" value="{{ $person->email }}" class="form-control" placeholder="email">
+                    <input type="text" name="email" value="{{ $employee->email }}" class="form-control" placeholder="email">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Phone:</strong>
-                    <input type="text" name="phone" value="{{ $person->phone }}" class="form-control" placeholder="phone">
+                    <input type="text" name="phone" value="{{ $employee->phone }}" class="form-control" placeholder="phone">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">

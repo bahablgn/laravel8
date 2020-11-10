@@ -2,23 +2,26 @@
   
 namespace App\Http\Controllers;
    
-use App\Models\Person;
+use App\Models\Employee;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
   
-class PersonController extends Controller
+class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+   
+     
+    public function index(Employee $employee)
     {
-        $people = Person::latest()->paginate(5);       
-        $company = Company::with('person');
-        return view('people.index',compact('people','company'))
+        //$employees = Employee::latest()->paginate(5);     
+        $employees = Employee::with('company')->get(); 
+
+        return view('employees.index', compact('employees'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
      
@@ -30,7 +33,7 @@ class PersonController extends Controller
     public function create()
     {
         $companies = DB::table('companies')->pluck("name","id");
-        return view('people.create', compact('companies'));
+        return view('employees.create', compact('companies'));
     }
     
     /**
@@ -49,45 +52,45 @@ class PersonController extends Controller
             'phone' => 'required',      
         ]);
     
-        Person::create($request->all());
+        Employee::create($request->all());
      
-        return redirect()->route('people.index')
-                        ->with('success','Person created successfully.');
+        return redirect()->route('employees.index')
+                        ->with('success','Employee created successfully.');
     }
      
     /**
      * Display the specified resource.
      *
-     * @param  \App\Person  $person
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function show(Person $person)
+    public function show(Employee $employee)
     {
-        $company = Company::with('person')->find($person->company_id);
-        return view('people.show',compact('person','company'));
+        //$company = Company::with('companyPerson')->find($employee->company_id);
+        return view('employees.show',compact('employee'));
     } 
      
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Person  $person
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function edit(Person $person)
+    public function edit(Employee $employee)
     {
         $companies = DB::table('companies')->pluck("name","id");
-        $company = Company::with('person')->find($person->company_id);
-        return view('people.edit',compact('person','company', 'companies'));
+        $company = Company::with('employee')->find($employee->company_id);
+        return view('employees.edit',compact('employee','company', 'companies'));
     }
     
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Person  $person
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Person $person)
+    public function update(Request $request, Employee $employee)
     {
         $request->validate([
             'name' => 'required',
@@ -97,24 +100,24 @@ class PersonController extends Controller
             'phone' => 'required',
         ]);
     
-        $person->update($request->all());
+        $employee->update($request->all());
     
-        return redirect()->route('people.index')
-                        ->with('success','Person updated successfully');
+        return redirect()->route('employees.index')
+                        ->with('success','Employee updated successfully');
     }
     
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Person  $person
+     * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Person $person)
+    public function destroy(Employee $employee)
     {
-        $person->delete();
+        $employee->delete();
     
-        return redirect()->route('people.index')
-                        ->with('success','Person deleted successfully');
+        return redirect()->route('employees.index')
+                        ->with('success','Employee deleted successfully');
     }
 
     

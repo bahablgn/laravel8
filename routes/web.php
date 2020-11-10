@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\PersonController;
+use App\Http\Controllers\EmployeeController;
 
 
 /*
@@ -17,9 +16,9 @@ use App\Http\Controllers\PersonController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::resource('products', ProductController::class);
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::resource('companies', CompanyController::class);
-Route::resource('people', PersonController::class);
+Route::resource('/', CompanyController::class);
+Route::resource('employees', EmployeeController::class);

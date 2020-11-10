@@ -1,4 +1,4 @@
-@extends('companies.layout')
+@extends('layout')
  
 @section('content')
     <div class="row">
@@ -24,7 +24,7 @@
             <th>Name</th>
             <th>URL</th>
             <th width="280px">Action</th>
-        </tr>
+        </tr>        
         @foreach ($companies as $company)
         <tr>
             <td>{{ ++$i }}</td>
