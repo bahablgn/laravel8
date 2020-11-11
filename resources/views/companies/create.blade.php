@@ -42,7 +42,9 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Address:</strong>
-                <textarea class="form-control" style="height:150px" name="address" placeholder="Address" required></textarea>
+                {{-- <textarea class="form-control" style="height:150px" name="address" placeholder="Address" required></textarea> --}}
+                <input  id="searchTextField" class="form-control" name="address" type="text" placeholder="Enter a location" autocomplete="off" required>
+
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -52,3 +54,13 @@
    
 </form>
 @endsection
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk3esWuI3nF4MirP43iMLEblHpbvuPkpk&libraries=places"></script>
+
+<script type="text/javascript">
+    function initialize() {
+            var input = document.getElementById('searchTextField');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>

@@ -81,23 +81,27 @@ class CompanyController extends Controller
             return "https://api.thumbalizr.com/api/v1/embed/$embed_key/$token/?$query";
         }
 
-        $html = file_get_contents($company->url);
+        $_html = file_get_contents($company->url);
         //echo $html;
-        if(!empty($html)){
-            $website = new Website();
-            $website->company_id = $company->id;
-            $website->html = $html;
-            
-            $thumbImg = thumbalizr($company->url);
-            if($thumbImg){
-                $website->thumbnail = $thumbImg;
-                $website->save();
-                $htmlFlag = true;
-            }
-            else {
-                $website->save();
-                $htmlFlag = true;
-            }        
+        if(!empty($_html)){
+            $html = htmlentities($_html);
+            if(!empty($html)){
+                $website = new Website();
+                $website->company_id = $company->id;
+                $website->html = $html;
+                
+                $thumbImg = thumbalizr($company->url);
+                if($thumbImg){
+                    $website->thumbnail = $thumbImg;
+                    $website->save();
+                    $htmlFlag = true;
+                }
+                else {
+                    $website->save();
+                    $htmlFlag = true;
+                }            
+                
+            }         
             
         }
 
