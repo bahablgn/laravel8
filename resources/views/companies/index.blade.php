@@ -22,6 +22,7 @@
         <tr>
             <th>No</th>
             <th>Name</th>
+            <th>Thumbnail</th>
             <th>URL</th>
             <th>Address</th>
             <th width="280px">Action</th>
@@ -30,14 +31,13 @@
         <tr>
             <td>{{ ++$i }}</td>
             <td>{{ $company->name }}</td>
+            <td><img src="{{ $company->websites[0]->thumbnail }}" class="img-thumbnail" alt="HTML THUMBNAIL"></td>
             <td>{{ $company->url }}</td>
             <td>{{ $company->addresses[0]->address }}</td>
             <td width="300px">
                 <form action="{{ route('companies.destroy',$company->id) }}" method="POST">
    
                     <a class="btn btn-info" href="{{ route('companies.show',$company->id) }}">Show</a>
-
-                    <a class="btn btn-warning" href="#">HTML</a>
     
                     <a class="btn btn-primary" href="{{ route('companies.edit',$company->id) }}">Edit</a>
 

@@ -65,18 +65,62 @@ class CompanyController extends Controller
 
         $htmlFlag = false;
 
-        $html = file_get_contents($company->url);
-        if($html){
-            $html = htmlentities($html);
-            //echo $html;
-    
-            $website = new Website();
-            $website->company_id = $company->id;
-            $website->html = $html;
-            $website->save();
-            $htmlFlag = true;
+        function curl_tt($url){
+
+            $ch = curl_init();
+            
+            curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);  
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 3);     
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+            $data = curl_exec($ch);
+            curl_close($ch);
+            
+            return $data;
         }
+        function thumbalizr($url, $options = array()) {
+            $embed_key = 'E97Iqtb9sCrgGwybROF5xNeNj'; # replace it with you Embed API key
+            $secret = '701liukCVOZZcg2s4N13cgW6p3tz9'; # replace it with your Secret
+            
+            $query = 'url=' . urlencode($url);
+            
+            foreach($options as $key => $value) { 
+                $query .= '&' . trim($key) . '=' . urlencode(trim($value)); 
+                
+            }            
+            
+            $token = md5($query . $secret);            
         
+            return "https://api.thumbalizr.com/api/v1/embed/$embed_key/$token/?$query";
+        }
+
+        $_html = file_get_contents($company->url);
+        //echo $html;
+        if(!empty($_html)){
+            $html = htmlentities($_html);
+            if(!empty($html)){
+                $website = new Website();
+                $website->company_id = $company->id;
+                $website->html = $html;
+                
+                $thumbImg = thumbalizr($company->url);
+                if($thumbImg){
+                    $website->thumbnail = $thumbImg;
+                    $website->save();
+                    $htmlFlag = true;
+                }
+                else {
+                    $website->save();
+                    $htmlFlag = true;
+                }            
+                
+            }         
+            
+        }
+
         if($htmlFlag){
             return redirect()->route('companies.index')
                 ->with('success','Company created and website HTML content stored');

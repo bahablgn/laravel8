@@ -12,7 +12,7 @@ class Website extends Model
     protected  $primaryKey = 'id';
   
     protected $fillable = [
-        'id', 'company_id', 'html'
+        'id', 'company_id', 'html', 'thumbnail'
     ];
 
     protected $table = 'websites';
